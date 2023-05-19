@@ -1,3 +1,8 @@
+import csv
+
+with open("/home/roman/skypro/electronics-shop-project/src/items.csv", encoding="1251") as file:
+    data = csv.DictReader(file)
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -6,16 +11,35 @@ class Item:
     all = []
 
     def __init__(self, name: str, price: float, quantity: int) -> None:
+
         """
         Создание экземпляра класса item.
-
         :param name: Название товара.
         :param price: Цена за единицу товара.
         :param quantity: Количество товара в магазине.
         """
-        self.name = name
+        self.__name = name
         self.price = price
         self.quantity = quantity
+        Item.all.append(self.__name)
+
+
+
+    @property
+    def set_name(self):
+        x = self.__name
+        if len(x) > 10:
+            raise Exception("Длина наименования товара больше 10 символов")
+        else:
+            return x
+
+    def get_name(self):
+        return self.__name
+
+    @staticmethod
+    def string_to_number(x):
+        x = int(x)
+        return x
 
     def __repr__(self):
         return f'{self.calculate_total_price()}'
@@ -33,6 +57,14 @@ class Item:
         """
         Применяет установленную скидку для конкретного товара.
         """
-        discount = self.calculate_total_price() * self.pay_rate
-        return discount
+        self.price = self.price * Item.pay_rate
+        return self.price
+
+    def instantiate_from_csv():
+        new_data = data
+        for i in new_data:
+            x = Item(i['name'], i['price'], i['quantity'])
+            return x
+
+
 
