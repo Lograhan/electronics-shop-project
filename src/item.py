@@ -1,7 +1,6 @@
 import csv
 
-with open("/home/roman/skypro/electronics-shop-project/src/items.csv", encoding="1251") as file:
-    data = csv.DictReader(file)
+
 
 class Item:
     """
@@ -21,25 +20,24 @@ class Item:
         self.__name = name
         self.price = price
         self.quantity = quantity
-        Item.all.append(self.__name)
-
-
+        Item.all.append(self)
 
     @property
-    def set_name(self):
-        x = self.__name
+    def name(self):
+        return self.__name
+
+
+    @name.setter
+    def name(self, x):
         if len(x) > 10:
             raise Exception("Длина наименования товара больше 10 символов")
-        else:
-            return x
-
-    def get_name(self):
-        return self.__name
+        self.__name = x
 
     @staticmethod
     def string_to_number(x):
-        x = int(x)
-        return x
+        x = float(x)
+        x = round(x, 1)
+        return int(x)
 
     def __repr__(self):
         return f'{self.calculate_total_price()}'
@@ -60,11 +58,13 @@ class Item:
         self.price = self.price * Item.pay_rate
         return self.price
 
-    def instantiate_from_csv():
-        new_data = data
-        for i in new_data:
-            x = Item(i['name'], i['price'], i['quantity'])
-            return x
-
-
+    @classmethod
+    def instantiate_from_csv(cls):
+        with open("/home/roman/skypro/electronics-shop-project/src/items.csv", encoding="1251") as file:
+            data = csv.DictReader(file)
+            for i in data:
+                name = i['name']
+                price = int(i['price'])
+                quantity = int(i['quantity'])
+                cls(name, price, quantity)
 
