@@ -60,7 +60,7 @@ class Item:
 
     @classmethod
     def instantiate_from_csv(cls):
-        with open("/home/roman/skypro/electronics-shop-project/src/items.csv", encoding="1251") as file:
+        with open("items.csv", encoding="1251") as file:
             data = csv.DictReader(file)
             for i in data:
                 name = i['name']
