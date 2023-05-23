@@ -39,8 +39,13 @@ class Item:
         x = round(x, 1)
         return int(x)
 
+    def __str__(self):
+        return f"{self.name}"
+
     def __repr__(self):
-        return f'{self.calculate_total_price()}'
+        return f"Item('{self.name}', {self.price}, {self.quantity})"
+
+
 
     def calculate_total_price(self) -> float:
         """
