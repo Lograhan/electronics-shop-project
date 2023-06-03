@@ -1,7 +1,6 @@
 import csv
 
 
-
 class Item:
     """
     Класс для представления товара в магазине.
@@ -17,6 +16,7 @@ class Item:
         :param price: Цена за единицу товара.
         :param quantity: Количество товара в магазине.
         """
+        super().__init__()
         self.__name = name
         self.price = price
         self.quantity = quantity
@@ -25,7 +25,6 @@ class Item:
     @property
     def name(self):
         return self.__name
-
 
     @name.setter
     def name(self, x):
@@ -44,8 +43,6 @@ class Item:
 
     def __repr__(self):
         return f"Item('{self.name}', {self.price}, {self.quantity})"
-
-
 
     def calculate_total_price(self) -> float:
         """
@@ -77,4 +74,26 @@ class Item:
         if not isinstance(other, Item):
             raise ValueError("Складывать можно только объекты Item и дочерние от них")
         return self.quantity + other.quantity
+
+
+class KeyboardMixin:
+    def __init__(self, language="EN"):
+        self.__language = language
+
+    @property
+    def language(self):
+        return self.__language
+
+    @language.setter
+    def language(self, lang):
+        if lang != "EN" or "RU":
+            raise AttributeError("property 'language' of 'KeyBoard' object has no setter")
+        self.__language = lang
+
+    def change_lang(self):
+        if self.__language == 'EN':
+            self.__language = 'RU'
+        elif self.__language == 'RU':
+            self.__language = 'EN'
+        return self
 
