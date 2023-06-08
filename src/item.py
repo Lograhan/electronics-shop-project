@@ -1,4 +1,7 @@
 import csv
+import pathlib
+import os
+from src.error import InstantiateCSVError
 
 
 class Item:
@@ -62,13 +65,26 @@ class Item:
 
     @classmethod
     def instantiate_from_csv(cls):
-        with open("items.csv", encoding="1251") as file:
-            data = csv.DictReader(file)
-            for i in data:
-                name = i['name']
-                price = int(i['price'])
-                quantity = int(i['quantity'])
-                cls(name, price, quantity)
+        p = os.path.abspath('items.csv')
+        print(p)
+        try:
+            file = open(p, 'r', encoding="1251")
+        except Exception as ex:
+            print(ex)
+        else:
+            with file:
+                data = csv.DictReader(file)
+                try:
+                    for i in data:
+                        if None in i.values():
+                            raise InstantiateCSVError
+                        else:
+                            name, price, quantity = i['name'], int(i['price']), int(i['quantity'])
+                            cls(name, price, quantity)
+                except InstantiateCSVError as ex:
+                    print(ex.message)
+                except ValueError as ex:
+                    print(ex)
 
     def __add__(self, other):
         if not isinstance(other, Item):
@@ -96,4 +112,6 @@ class KeyboardMixin:
         elif self.__language == 'RU':
             self.__language = 'EN'
         return self
+
+
 
