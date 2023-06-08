@@ -29,6 +29,7 @@ def test_repr_str():
     assert repr(product) == "Item('Смартфон', 15.0, 5)"
     assert str(product) == 'Смартфон'
 
+
 def test_add():
     item1 = Item("Смартфон", 10000, 20)
     phone1 = Phone("iPhone 14", 120_000, 5, 2)
@@ -38,3 +39,7 @@ def test_add():
         phone1 + 10
     with pytest.raises(ValueError):
         item1 + 10
+
+
+def test_instantiate_from_csv():
+    assert Item.instantiate_from_csv() is None
