@@ -1,5 +1,6 @@
 """Здесь надо написать тесты с использованием pytest для модуля item."""
 import pytest
+import csv
 
 from src.item import Item
 from src.phone import Phone
@@ -42,4 +43,8 @@ def test_add():
 
 
 def test_instantiate_from_csv():
+    file = open("/home/roman/skypro/electronics-shop-project/src/items.csv", encoding="1251")
+    data = csv.DictReader(file)
     assert Item.instantiate_from_csv() is None
+
+

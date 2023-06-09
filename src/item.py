@@ -65,10 +65,8 @@ class Item:
 
     @classmethod
     def instantiate_from_csv(cls):
-        p = os.path.abspath('items.csv')
-        print(p)
         try:
-            file = open(p, 'r', encoding="1251")
+            file = open("/home/roman/skypro/electronics-shop-project/src/items.csv", encoding="1251")
         except Exception as ex:
             print(ex)
         else:
@@ -112,6 +110,5 @@ class KeyboardMixin:
         elif self.__language == 'RU':
             self.__language = 'EN'
         return self
-
 
 
