@@ -66,7 +66,7 @@ class Item:
     @classmethod
     def instantiate_from_csv(cls):
         try:
-            file = open("/home/roman/skypro/electronics-shop-project/src/items.csv", encoding="1251")
+            file = open("../src/items.csv", encoding="1251")
         except Exception as ex:
             print(ex)
         else:
